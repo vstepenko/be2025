@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ua.edu.duan.be2025.dto.StudentDto;
 import ua.edu.duan.be2025.service.FirstService;
 
 import java.util.List;
@@ -30,28 +32,28 @@ public class FirstController {
     }
 
     @GetMapping(value = "/student")
-    public String getStudent(@RequestParam String id) {
+    public StudentDto getStudent(@RequestParam String id) {
         return firstService.getStudent(id);
     }
 
     @GetMapping(value = "/student-by-name")
-    public List<String> getStudentByName(@RequestParam String name) {
+    public List<StudentDto> getStudentByName(@RequestParam String name) {
         return firstService.getStudentByName(name);
     }
 
     @PostMapping(value = "/student")
-    public String addStudent(@RequestParam String name, @RequestParam String lastName){
-        return "add student  with! " + name + "lastName: "  + lastName;
+    public void addStudent(@RequestBody StudentDto studentDto) {
+      firstService.addStudent(studentDto);
     }
 
     @PutMapping(value = "/student")
-    public String editStudent(){
-        return "Hello World!";
+    public void  editStudent(@RequestParam String id, @RequestBody StudentDto studentDto){
+        firstService.editStudent(id, studentDto);
     }
 
     @DeleteMapping(value = "/student")
-    public String deleteStudent(String id){
-        return "Hello World!";
+    public void deleteStudent(@RequestParam String id){
+       firstService.deleteStudent(id);
     }
 
 }
