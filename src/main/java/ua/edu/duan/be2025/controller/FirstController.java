@@ -1,6 +1,7 @@
 package ua.edu.duan.be2025.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class FirstController {
     }
 
     @GetMapping(value = "/student")
+    @Operation( summary = "Brief descriprion" ,  description = "Full Description")
     public StudentDto getStudent(@RequestParam String id) {
         return firstService.getStudent(id);
     }

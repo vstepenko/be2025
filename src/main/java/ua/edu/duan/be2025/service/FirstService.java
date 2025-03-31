@@ -2,6 +2,7 @@ package ua.edu.duan.be2025.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +12,11 @@ import ua.edu.duan.be2025.repository.StudentRepository;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class FirstService {
@@ -20,9 +24,15 @@ public class FirstService {
     private final StudentRepository studentRepository;
 
     public StudentDto getStudent(String id) {
+        log.info("Get student by id: {}  and another parameter {}", id, "param2");
         return studentRepository.findById(id)
                 .map(this::convert)
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseGet(
+                        () -> {
+                            log.info("Get student by id: {} failed", id);
+                            throw new RuntimeException("Student not found");
+                        }
+                );
     }
 
     public List<StudentDto> getStudentByName(String name) {
@@ -40,11 +50,15 @@ public class FirstService {
 
     @Transactional
     public void editStudent(String id, StudentDto studentDto) {
+
+
         studentRepository.findById(id)
                 .ifPresentOrElse(
                         student -> assemble(student, studentDto),
-                        ()-> {throw new RuntimeException("Student not found");});
+                        () -> {
+                            throw new RuntimeException("Student not found");
 
+                        });
     }
 
     public void deleteStudent(String id) {
