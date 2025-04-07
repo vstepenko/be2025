@@ -12,7 +12,7 @@ import ua.edu.duan.be2025.repository.StudentRepository;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Logger;
+
 
 
 
@@ -30,7 +30,7 @@ public class FirstService {
                 .orElseGet(
                         () -> {
                             log.info("Get student by id: {} failed", id);
-                            throw new RuntimeException("Student not found");
+                            throw new StudentException(ErrorCode.STUDENT_NOT_FOUND);
                         }
                 );
     }

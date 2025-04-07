@@ -2,7 +2,13 @@ package ua.edu.duan.be2025.controller;
 
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +23,7 @@ import java.util.List;
 
 
 @RestController
+@Validated
 public class FirstController {
 
     private FirstService firstService;
@@ -32,9 +39,10 @@ public class FirstController {
 
     }
 
+    @Valid
     @GetMapping(value = "/student")
     @Operation( summary = "Brief descriprion" ,  description = "Full Description")
-    public StudentDto getStudent(@RequestParam String id) {
+    public StudentDto getStudent(@RequestParam @Length(min = 1, max = 3) String id) {
         return firstService.getStudent(id);
     }
 
