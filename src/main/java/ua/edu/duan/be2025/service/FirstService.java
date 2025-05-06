@@ -48,13 +48,15 @@ public class FirstService {
         studentRepository.save(studentEntity);
     }
 
-    @Transactional
+    @Transactional(isolation = )
     public void editStudent(String id, StudentDto studentDto) {
 
 
         studentRepository.findById(id)
                 .ifPresentOrElse(
-                        student -> assemble(student, studentDto),
+                        student -> {
+                            assemble(student, studentDto);
+                        },
                         () -> {
                             throw new RuntimeException("Student not found");
 

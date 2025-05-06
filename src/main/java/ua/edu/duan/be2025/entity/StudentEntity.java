@@ -20,10 +20,13 @@ public class StudentEntity {
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "midle_name")
+    @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "las_name")
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "email")
+    private String email;
 
 }

@@ -1,0 +1,23 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="lection6-create_table_student" author="vstepenko">
+        <createTable tableName="student">
+            <column name="id" type="varchar">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar"/>
+            <column name="middle_name" type="varchar"/>
+            <column name="last_name" type="varchar"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="lection6-add-column" author="vstepenko">
+        <addColumn tableName="student">
+            <column name="email" type="varchar"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
